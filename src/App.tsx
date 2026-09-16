@@ -8,6 +8,7 @@ import Terminos from './pages/Terminos'
 import ContactModal from './components/ContactModal'
 import ProductInquiryModal from './components/ProductInquiryModal'
 import { ModalProvider } from './context/ModalContext'
+import { useMetaPixel } from './hooks/useMetaPixel'
 
 /** Scrolls to top on a plain route change, or to the matching #id (below the fixed header) when the URL carries a hash. */
 function ScrollManager() {
@@ -29,6 +30,7 @@ function ScrollManager() {
 }
 
 export default function App() {
+  useMetaPixel()
   return (
     <ModalProvider>
       <div className="overflow-x-hidden">
