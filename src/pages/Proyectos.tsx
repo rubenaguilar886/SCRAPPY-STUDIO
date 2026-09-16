@@ -4,8 +4,10 @@ import ProjectCard from '../components/ProjectCard'
 import CTASection from '../components/CTASection'
 import { categories } from '../data/categories'
 import { getProjectsByCategory } from '../data/projects'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 export default function Proyectos() {
+  usePageTitle('Proyectos')
   const [searchParams, setSearchParams] = useSearchParams()
   const activeCategory = searchParams.get('categoria')
   const visibleProjects = getProjectsByCategory(activeCategory)

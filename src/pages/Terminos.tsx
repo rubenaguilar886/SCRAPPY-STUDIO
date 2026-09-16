@@ -2,6 +2,7 @@ import PageShell, { PageHeader } from '../components/PageShell'
 import { RollBtn } from '../components/ui'
 import { products } from '../data/products'
 import { waLink } from '../lib/whatsapp'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 const paymentSplits: Record<string, { adelanto: string; saldo: string }> = {
   'landing-page': { adelanto: 'S/225', saldo: 'S/525' },
@@ -117,6 +118,7 @@ const sections: Section[] = [
 ]
 
 export default function Terminos() {
+  usePageTitle('Términos y Condiciones')
   return (
     <PageShell>
       <PageHeader

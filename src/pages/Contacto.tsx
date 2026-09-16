@@ -2,8 +2,10 @@ import { MessageCircle } from 'lucide-react'
 import PageShell, { PageHeader } from '../components/PageShell'
 import ContactForm from '../components/ContactForm'
 import { WHATSAPP_NUMBER, waLink } from '../lib/whatsapp'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 export default function Contacto() {
+  usePageTitle('Contacto')
   return (
     <PageShell>
       <PageHeader title="Contacto" />
