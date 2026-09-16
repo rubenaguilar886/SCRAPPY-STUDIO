@@ -15,9 +15,16 @@ export default function Testimonials() {
             esta misma tienda, el mismo checkout y la misma pasarela de pago. Por eso puedo garantizar que no es
             solo una web bonita — es un canal de venta real.”
           </p>
-          <div>
-            <p className="text-sm font-semibold text-gray-900">Rubén Aguilar</p>
-            <p className="text-xs text-gray-500">Fundador, Mono Experience</p>
+          <div className="flex items-center gap-3">
+            <img
+              src="/team/ruben-aguilar.jpg"
+              alt="Rubén Aguilar"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
+            />
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Rubén Aguilar</p>
+              <p className="text-xs text-gray-500">Fundador, Mono Experience</p>
+            </div>
           </div>
         </div>
       </div>
