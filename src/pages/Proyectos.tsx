@@ -55,7 +55,7 @@ export default function Proyectos() {
               visibleProjects.length === 1
                 ? 'max-w-2xl mx-auto'
                 : visibleProjects.length === 2
-                  ? 'sm:grid-cols-2 max-w-4xl mx-auto'
+                  ? 'sm:grid-cols-2 max-w-6xl mx-auto'
                   : 'sm:grid-cols-2 lg:grid-cols-3'
             }`}
           >

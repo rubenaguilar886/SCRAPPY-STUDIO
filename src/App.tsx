@@ -6,6 +6,7 @@ import Proyectos from './pages/Proyectos'
 import Contacto from './pages/Contacto'
 import Terminos from './pages/Terminos'
 import ContactModal from './components/ContactModal'
+import WhatsAppButton from './components/WhatsAppButton'
 import ProductInquiryModal from './components/ProductInquiryModal'
 import { ModalProvider } from './context/ModalContext'
 import { useMetaPixel } from './hooks/useMetaPixel'
@@ -33,7 +34,7 @@ export default function App() {
   useMetaPixel()
   return (
     <ModalProvider>
-      <div className="overflow-x-hidden">
+      <div className="overflow-x-clip">
         <ScrollManager />
         <Navbar />
         <Routes>
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/terminos" element={<Terminos />} />
         </Routes>
+        <WhatsAppButton />
         <ContactModal />
         <ProductInquiryModal />
       </div>

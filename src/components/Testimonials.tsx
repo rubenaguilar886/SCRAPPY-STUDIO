@@ -1,3 +1,5 @@
+import { Star } from 'lucide-react'
+
 export default function Testimonials() {
   return (
     <section className="bg-white pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24 border-t border-gray-100">
@@ -10,6 +12,11 @@ export default function Testimonials() {
         </h2>
 
         <div className="max-w-2xl mx-auto bg-[#F5F5F5] rounded-2xl p-8 sm:p-10">
+          <div className="flex gap-1 mb-4" role="img" aria-label="5 de 5 estrellas">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} size={20} className="fill-[#FBBF24] text-[#FBBF24]" />
+            ))}
+          </div>
           <p className="text-base sm:text-lg leading-relaxed text-gray-800 mb-6">
             “Antes de ofrecerle esto a otros negocios, lo probé en el mío. Mono Experience vende todos los días con
             esta misma tienda, el mismo checkout y la misma pasarela de pago. Por eso puedo garantizar que no es

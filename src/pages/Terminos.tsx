@@ -5,8 +5,8 @@ import { waLink } from '../lib/whatsapp'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 const paymentSplits: Record<string, { adelanto: string; saldo: string }> = {
-  'landing-page': { adelanto: 'S/225', saldo: 'S/525' },
-  'tienda-online': { adelanto: 'S/840', saldo: 'S/1,960' },
+  'landing-page': { adelanto: 'S/240', saldo: 'S/560' },
+  'tienda-online': { adelanto: 'S/780', saldo: 'S/1,820' },
 }
 
 interface Section {

@@ -1,8 +1,47 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'lucide-react'
 import type { Project } from '../data/projects'
 
+/** Clip grabado del sitio, en loop y sin sonido. Descarga cuando falta poco para verlo y solo reproduce mientras está a la vista. */
+function VideoPreview({ src, poster }: { src: string; poster?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [near, setNear] = useState(false)
+
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setNear(true)
+        if (entry.isIntersecting) el.play().catch(() => {})
+        else el.pause()
+      },
+      { rootMargin: '600px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <video
+      ref={videoRef}
+      src={near ? src : undefined}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      autoPlay
+      preload="none"
+      aria-hidden="true"
+      tabIndex={-1}
+      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      style={{ objectPosition: 'top' }}
+    />
+  )
+}
+
 export default function ProjectCard({ project }: { project: Project }) {
-  const { title, description, tag, demoPath, image, dark } = project
+  const { title, description, tag, demoPath, image, dark, video } = project
   const btnLabel = dark ? 'Ver demo' : 'Ver proyecto'
   const bgCard = dark ? 'bg-[#1a1d2e]' : 'bg-[#f0ede8]'
 
@@ -12,17 +51,20 @@ export default function ProjectCard({ project }: { project: Project }) {
         href={demoPath}
         target="_blank"
         rel="noopener"
-        className={`relative block rounded-2xl overflow-hidden group cursor-pointer ${bgCard}`}
+        className={`relative block rounded-2xl overflow-hidden group cursor-pointer transition-[transform,box-shadow] duration-500 ease-out motion-reduce:transition-none hover:-translate-y-2 hover:shadow-[0_22px_50px_-12px_rgba(124,58,237,0.35)] ${bgCard}`}
         style={{ aspectRatio: image ? '16/9' : dark ? '329/246' : '1/1' }}
       >
         {image ? (
-          <img
-            src={image}
-            alt={title}
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ objectPosition: 'top' }}
-            loading="lazy"
-          />
+          <>
+            <img
+              src={image}
+              alt={title}
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'top' }}
+              loading="lazy"
+            />
+            {video && <VideoPreview src={video} poster={image} />}
+          </>
         ) : (
           <div className="absolute inset-0 overflow-hidden">
             <iframe
@@ -75,7 +117,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
       <div className="flex items-center gap-2 mt-4">
         <span className="text-xs sm:text-sm font-semibold text-gray-900">{title}</span>
-        <span className="text-[10px] font-medium text-gray-400 border border-gray-200 rounded-full px-2 py-0.5">{tag}</span>
+        <span className="text-[10px] font-medium text-gray-500 border border-gray-200 rounded-full px-2 py-0.5">{tag}</span>
       </div>
       <p className="text-xs sm:text-sm text-gray-500 mt-1 leading-relaxed">{description}</p>
     </div>

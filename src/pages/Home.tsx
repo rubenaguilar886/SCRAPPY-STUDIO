@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import TopBar from '../components/TopBar'
+import HeroBenefits from '../components/HeroBenefits'
 import { RollBtn } from '../components/ui'
 import ProductTabs from '../components/ProductTabs'
 import ProcesoSection from '../components/ProcesoSection'
@@ -17,6 +17,7 @@ function Hero() {
     <section
       className="relative flex flex-col overflow-hidden h-[520px] md:h-[620px]"
       style={{
+        paddingTop: 'var(--site-header-h, 0px)',
         background:
           'radial-gradient(circle at 72% 22%, rgba(255,255,255,0.4), transparent 42%), ' +
           'radial-gradient(circle at 12% 88%, rgba(236,72,153,0.55), transparent 45%), ' +
@@ -32,8 +33,9 @@ function Hero() {
             Somos tu socio estratégico digital.
           </h1>
 
-          <p className="text-sm sm:text-base text-white/80 leading-relaxed mb-8 sm:mb-10">
-            Entendemos tu negocio. Construimos lo que necesita.
+          <p className="text-sm sm:text-base text-white/90 leading-relaxed mb-8 sm:mb-10">
+            Tiendas online y landing pages para negocios en Perú.
+            <br className="hidden sm:block" /> Entendemos tu negocio y construimos lo que necesita.
           </p>
 
           <div className="flex items-center justify-center">
@@ -43,9 +45,13 @@ function Hero() {
               arrowBg="bg-[#7C3AED]"
               arrowColor="text-white"
             >
-              Agendar una llamada
+              Escríbenos por WhatsApp
             </RollBtn>
           </div>
+
+          <p className="mt-5 text-xs sm:text-sm text-white/85">
+            Landing desde S/800 · Tienda online desde S/2,600 · precios con IGV
+          </p>
         </div>
       </div>
     </section>
@@ -66,14 +72,8 @@ function ProjectsPreview() {
             className="font-medium text-gray-900 leading-[1.08] tracking-[-0.03em]"
             style={{ fontSize: 'clamp(1.5rem, 4.5vw, 2.75rem)' }}
           >
-            Soluciones reales para negocios reales
+            Últimos proyectos...
           </h2>
-          <Link
-            to="/proyectos"
-            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1"
-          >
-            Ver todos los proyectos →
-          </Link>
         </div>
 
         <div
@@ -81,7 +81,7 @@ function ProjectsPreview() {
             preview.length === 1
               ? 'max-w-2xl mx-auto'
               : preview.length === 2
-                ? 'sm:grid-cols-2 max-w-4xl mx-auto'
+                ? 'sm:grid-cols-2 max-w-6xl mx-auto'
                 : preview.length === 3
                   ? 'sm:grid-cols-2 lg:grid-cols-3'
                   : 'sm:grid-cols-2 lg:grid-cols-4'
@@ -101,9 +101,10 @@ export default function Home() {
     <>
       <Hero />
       <TopBar />
+      <HeroBenefits />
       <ProcesoSection />
       <ProjectsPreview />
-      <TopBar messages={['30% de adelanto, 70% al publicar tu proyecto']} />
+      <TopBar messages={['30% de adelanto']} />
       <ProductTabs />
       <FAQAccordion />
       <Testimonials />
@@ -112,3 +113,5 @@ export default function Home() {
     </>
   )
 }
+
+

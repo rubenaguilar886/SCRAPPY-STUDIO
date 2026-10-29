@@ -103,7 +103,7 @@ export default function ContactForm({ onSubmitted }: { onSubmitted?: () => void 
       <RollBtn submit className="bg-black hover:bg-gray-900 text-white text-sm pl-5 pr-2 py-2.5 self-start">
         Enviar mensaje
       </RollBtn>
-      <p className="text-xs text-gray-400">
+      <p className="text-xs text-gray-500">
         Al enviar se abrirá WhatsApp con tu mensaje ya redactado — solo confirmas y lo mandas.
       </p>
     </form>

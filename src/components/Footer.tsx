@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { Phone } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 import { Logo, Wordmark } from './ui'
-import { WHATSAPP_NUMBER, waLink } from '../lib/whatsapp'
+import { CONTACT_EMAIL, WHATSAPP_NUMBER, waLink } from '../lib/whatsapp'
 
 const navLinks = [
   { to: '/', label: 'Inicio' },
-  { to: '/#que-frena', label: 'Productos' },
   { to: '/#proyectos', label: 'Proyectos' },
+  { to: '/#que-frena', label: 'Productos' },
   { to: '/contacto', label: 'Contacto' },
 ]
 
@@ -31,6 +31,13 @@ export default function Footer() {
             >
               <Phone size={14} />
               +{WHATSAPP_NUMBER.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4')}
+            </a>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors w-fit"
+            >
+              <Mail size={14} />
+              {CONTACT_EMAIL}
             </a>
           </div>
 

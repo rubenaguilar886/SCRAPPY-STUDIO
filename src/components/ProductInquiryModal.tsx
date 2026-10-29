@@ -64,7 +64,7 @@ function ProductInquiryForm({ product, onSubmitted }: { product: Product; onSubm
       <RollBtn submit className="bg-black hover:bg-gray-900 text-white text-sm pl-5 pr-2 py-2.5 self-start">
         Enviar
       </RollBtn>
-      <p className="text-xs text-gray-400">Al enviar se abrirá WhatsApp con tu mensaje ya redactado.</p>
+      <p className="text-xs text-gray-500">Al enviar se abrirá WhatsApp con tu mensaje ya redactado.</p>
     </form>
   )
 }

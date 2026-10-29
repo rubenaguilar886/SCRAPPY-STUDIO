@@ -50,7 +50,7 @@ export function Wordmark({
       </span>
       <span
         className={`font-semibold uppercase tracking-[0.25em] mt-0.5 ${
-          tagClassName || (dark ? 'text-[9px] text-white/40' : 'text-[9px] text-gray-400')
+          tagClassName || (dark ? 'text-[9px] text-white/40' : 'text-[9px] text-gray-500')
         }`}
       >
         Studio

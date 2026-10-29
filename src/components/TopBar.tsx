@@ -1,9 +1,15 @@
 const DEFAULT_MESSAGES = ['Escala cuando quieras', 'Tu negocio vendiendo online']
 const REPEATS = Array.from({ length: 6 })
 
-export default function TopBar({ messages = DEFAULT_MESSAGES }: { messages?: string[] }) {
+export default function TopBar({
+  messages = DEFAULT_MESSAGES,
+  className = 'h-11',
+}: {
+  messages?: string[]
+  className?: string
+}) {
   return (
-    <div className="h-11 bg-black overflow-hidden flex items-center">
+    <div className={`${className} bg-black overflow-hidden flex items-center`}>
       <div className="flex whitespace-nowrap" style={{ animation: 'marquee 40s linear infinite' }}>
         {REPEATS.map((_, i) => (
           <span key={i} className="text-white text-sm font-semibold tracking-wide px-16">

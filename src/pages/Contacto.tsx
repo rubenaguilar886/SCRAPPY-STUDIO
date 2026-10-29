@@ -1,7 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import PageShell, { PageHeader } from '../components/PageShell'
 import ContactForm from '../components/ContactForm'
-import { WHATSAPP_NUMBER, waLink } from '../lib/whatsapp'
+import { CONTACT_EMAIL, WHATSAPP_NUMBER, waLink } from '../lib/whatsapp'
 import { usePageTitle } from '../hooks/usePageTitle'
 
 export default function Contacto() {
@@ -15,8 +15,7 @@ export default function Contacto() {
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Información</h2>
             <p className="text-sm text-gray-500 leading-relaxed mb-6 max-w-sm">
-              ¿Tienes alguna pregunta? Escríbenos por WhatsApp — todo pasa por ahí, sin formularios que se pierden en
-              un correo.
+              ¿Tienes alguna pregunta? Escríbenos por WhatsApp, que es la vía más rápida, o por correo.
             </p>
 
             <p className="text-sm font-semibold text-gray-900 mb-1">Teléfono:</p>
@@ -27,6 +26,14 @@ export default function Contacto() {
               className="text-sm text-gray-500 hover:text-[#A78BFA] transition-colors underline"
             >
               +{WHATSAPP_NUMBER.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4')}
+            </a>
+
+            <p className="text-sm font-semibold text-gray-900 mt-5 mb-1">Correo:</p>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="text-sm text-gray-500 hover:text-[#A78BFA] transition-colors underline break-all"
+            >
+              {CONTACT_EMAIL}
             </a>
 
             <p className="text-sm font-semibold text-gray-900 mt-5 mb-1">Ubicación:</p>

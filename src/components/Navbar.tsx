@@ -1,26 +1,33 @@
 import { useState, useEffect, useRef } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { Clock, Menu, X } from 'lucide-react'
 import { Logo, Wordmark, RollBtn } from './ui'
 import { useModal } from '../context/ModalContext'
+import TopBar from './TopBar'
 
 /** "route" links get active-state styling; "scroll" links just jump to a section on the home page. */
 const navLinks = [
   { to: '/', label: 'Inicio', kind: 'route' as const },
-  { to: '/#que-frena', label: 'Productos', kind: 'scroll' as const },
   { to: '/#proyectos', label: 'Proyectos', kind: 'scroll' as const },
+  { to: '/#que-frena', label: 'Productos', kind: 'scroll' as const },
   { to: '/contacto', label: 'Contacto', kind: 'route' as const },
 ]
 
-/** Hides the header on scroll-down, reveals it on scroll-up. */
-function useHeaderHidden() {
+/**
+ * Hides the header on scroll-down, reveals it on scroll-up.
+ * `atTop` is true only while the page is at the very top (header transparent then, white otherwise).
+ */
+function useHeaderState() {
   const [hidden, setHidden] = useState(false)
+  const [atTop, setAtTop] = useState(() => window.scrollY <= 10)
 
   useEffect(() => {
     let lastY = window.scrollY
 
     const onScroll = () => {
       const currentY = window.scrollY
+      setAtTop(currentY <= 10)
+
       const delta = currentY - lastY
       if (Math.abs(delta) < 8) return
 
@@ -34,17 +41,22 @@ function useHeaderHidden() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  return hidden
+  return { hidden, atTop }
 }
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [limaTime, setLimaTime] = useState('')
-  const scrollHidden = useHeaderHidden()
+  const { hidden: scrollHidden, atTop } = useHeaderState()
+  const { pathname } = useLocation()
   const headerRef = useRef<HTMLElement>(null)
   const { openContactModal } = useModal()
 
   const hidden = scrollHidden && !menuOpen
+  // Solo el home tiene un hero oscuro debajo del header transparente → texto blanco ahí.
+  const onDark = atTop && pathname === '/'
+  const linkIdle = onDark ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+  const linkActive = onDark ? 'text-white font-medium' : 'text-gray-900 font-medium'
 
   useEffect(() => {
     const tick = () => {
@@ -72,7 +84,7 @@ export default function Navbar() {
     setHeaderHeightVar()
     window.addEventListener('resize', setHeaderHeightVar)
     return () => window.removeEventListener('resize', setHeaderHeightVar)
-  }, [])
+  }, [pathname])
 
   return (
     <>
@@ -81,13 +93,12 @@ export default function Navbar() {
         className="fixed top-0 inset-x-0 z-40 transition-transform duration-300"
         style={{ transform: hidden ? 'translateY(-100%)' : 'translateY(0)', transitionTimingFunction: 'cubic-bezier(0.25,0.1,0.25,1)' }}
       >
+        {pathname === '/contacto' && <TopBar className="h-9" />}
         <nav
-          className="border-b border-white/25"
+          className="transition-[background-color,box-shadow] duration-300"
           style={{
-            background: 'rgba(255,255,255,0.45)',
-            backdropFilter: 'blur(18px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(18px) saturate(160%)',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+            background: atTop ? 'transparent' : '#FFFFFF',
+            boxShadow: atTop ? 'none' : '0 2px 16px rgba(0,0,0,0.08)',
           }}
         >
           <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
@@ -95,7 +106,11 @@ export default function Navbar() {
               <NavLink to="/" className="flex items-center gap-2.5 flex-shrink-0 order-2 md:order-1">
                 <Logo size={36} />
                 <span className="hidden sm:block">
-                  <Wordmark nameClassName="text-base" tagClassName="text-[9px] text-black" />
+                  <Wordmark
+                    dark={onDark}
+                    nameClassName="text-base"
+                    tagClassName={`text-[9px] ${onDark ? 'text-white/70' : 'text-black'}`}
+                  />
                 </span>
               </NavLink>
 
@@ -105,7 +120,7 @@ export default function Navbar() {
                     <Link
                       key={l.to}
                       to={l.to}
-                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                      className={`text-sm transition-colors duration-300 ${linkIdle}`}
                     >
                       {l.label}
                     </Link>
@@ -115,9 +130,7 @@ export default function Navbar() {
                       to={l.to}
                       end={l.to === '/'}
                       className={({ isActive }) =>
-                        `text-sm transition-colors duration-300 ${
-                          isActive ? 'text-gray-900 font-medium' : 'text-gray-600 hover:text-gray-900'
-                        }`
+                        `text-sm transition-colors duration-300 ${isActive ? linkActive : linkIdle}`
                       }
                     >
                       {l.label}
@@ -137,8 +150,8 @@ export default function Navbar() {
                       className="flex flex-col transition-transform duration-500 group-hover:-translate-y-1/2"
                       style={{ transitionTimingFunction: 'cubic-bezier(0.25,0.1,0.25,1)' }}
                     >
-                      <span>Agendar una llamada</span>
-                      <span aria-hidden>Agendar una llamada</span>
+                      <span>Escríbenos por WhatsApp</span>
+                      <span aria-hidden>Escríbenos por WhatsApp</span>
                     </span>
                   </span>
                   <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center">
@@ -149,7 +162,7 @@ export default function Navbar() {
                 </button>
                 <button
                   onClick={() => setMenuOpen(o => !o)}
-                  className="md:hidden flex items-center justify-center text-gray-900"
+                  className={`md:hidden flex items-center justify-center ${onDark ? 'text-white' : 'text-gray-900'}`}
                   aria-label="Toggle menu"
                 >
                   {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -205,7 +218,7 @@ export default function Navbar() {
               }}
               className="bg-black text-white text-sm pl-5 pr-2 py-2.5 self-start"
             >
-              Agendar una llamada
+              Escríbenos por WhatsApp
             </RollBtn>
           </div>
         </div>
@@ -213,3 +226,4 @@ export default function Navbar() {
     </>
   )
 }
+

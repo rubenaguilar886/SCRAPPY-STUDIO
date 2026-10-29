@@ -26,7 +26,7 @@ export default function CTASection() {
           arrowBg="bg-[#7C3AED]"
           arrowColor="text-white"
         >
-          Agendar una llamada
+          Escríbenos por WhatsApp
         </RollBtn>
       </div>
     </section>

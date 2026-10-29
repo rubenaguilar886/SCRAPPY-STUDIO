@@ -24,7 +24,7 @@ export function PageHeader({ title, subtitle }: { title: string; subtitle?: stri
       </h1>
       <div className="mx-auto mb-5 rounded-full" style={{ width: '56px', height: '3px', background: '#A78BFA' }} />
       {subtitle && (
-        <p className="text-sm sm:text-base text-[#A78BFA] max-w-2xl mx-auto leading-relaxed">{subtitle}</p>
+        <p className="text-sm sm:text-base text-[#7C3AED] max-w-2xl mx-auto leading-relaxed">{subtitle}</p>
       )}
     </div>
   )
